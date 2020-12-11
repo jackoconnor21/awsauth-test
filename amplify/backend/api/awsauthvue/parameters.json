@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "awsauthvue",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authawsauthvue2f393e06",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
