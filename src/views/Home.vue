@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div v-for="todo in todos" :key="todo.id">
+      {{ todo.name }}
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data: () => ({
+  }),
+  computed: {
+    ...mapGetters({
+      todos: 'todos'
+    })
+  },
+  async created() {
+    await this.$store.dispatch('getTodos').catch(err => console.log('caught', err))
   }
 }
 </script>

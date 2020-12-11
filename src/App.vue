@@ -1,12 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <ul id="nav">
+      <li><router-link to="/">Home</router-link></li>
+      <li><router-link to="/about">About</router-link></li>
+      <li v-if="!currentUser"><router-link to="/auth">Login</router-link></li>
+      <li v-else><a href="#" @click.prevent="signOut">Sign Out</a></li>
+    </ul>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters({
+      currentUser: 'auth/getCurrentUser'
+    })
+  },
+  methods: {
+    signOut() {
+      this.$store.dispatch('auth/signOut')
+    }
+  },
+  created() {
+    this.$store.dispatch('auth/setUser')
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
